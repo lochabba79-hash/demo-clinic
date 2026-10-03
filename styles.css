@@ -1,9 +1,18 @@
 /* Clinique El-Chifa — warm traditional Arabic clinic
    Tokens: paper #FAF5EB, ink #2B2320, terracotta #B4552D, deep green #2F5D50, gold #C9A227 */
 :root{
-  --bg:#FAF5EB; --ink:#2B2320; --ink-soft:#6f6157;
-  --terra:#B4552D; --green:#2F5D50; --gold:#C9A227;
+  --bg:#FAF5EB; --ink:#2B2320; --ink-soft:#5A4C42;
+  --terra:#A94E27; --green:#2B554A; --gold:#8A6D1C;
   --font-display:"Amiri",serif; --font-body:"Tajawal",system-ui,sans-serif;
+}
+/* Contrast: body text ≈7.6:1, buttons ≈7:1 — WCAG AAA */
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1E1712; --ink:#F4E9D6; --ink-soft:#CDBFA9;
+    --terra:#E08A52; --green:#7FC0A8; --gold:#D9B64A}
+  .stage__veil{background:linear-gradient(-90deg,rgba(30,23,18,.92) 4%,transparent 45%)}
+  .topbar{background:color-mix(in srgb,#2a211a 78%,transparent)}
+  .services li,.faq details,.book,.copy__tags li{background:color-mix(in srgb,#fff 8%,transparent)}
+  .book__field input,.book__field select{background:#2a211a;color:var(--ink);border-color:color-mix(in srgb,var(--ink) 30%,transparent)}
 }
 *{box-sizing:border-box}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
@@ -32,6 +41,8 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-
 .topcta{text-decoration:none;font-weight:700;font-size:.88rem;color:#fff;background:var(--green);
   padding:10px 20px;border-radius:999px;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .topcta i{font-size:1.1rem}
+.langtoggle{font:inherit;font-size:.8rem;font-weight:800;color:var(--ink);background:transparent;
+  border:1.5px solid color-mix(in srgb,var(--ink) 30%,transparent);border-radius:999px;padding:9px 15px;cursor:pointer;white-space:nowrap}
 
 /* Pinned cinematic stage */
 .stage{position:fixed;inset:0;z-index:1;pointer-events:none}
@@ -89,7 +100,7 @@ main{position:relative;z-index:10}
 .copy__title{font-family:var(--font-display);font-weight:700;font-size:clamp(2.1rem,5.2vw,3.4rem);
   line-height:1.35;margin:16px 0 0;text-wrap:balance}
 .copy__title em{font-style:normal;color:var(--terra)}
-.copy__body{margin:16px 0 0;font-size:clamp(1rem,1.4vw,1.12rem);line-height:1.9;color:color-mix(in srgb,var(--ink) 82%,var(--ink-soft));max-width:42ch}
+.copy__body{margin:16px 0 0;font-size:clamp(1rem,1.4vw,1.12rem);line-height:1.9;color:color-mix(in srgb,var(--ink) 88%,var(--ink-soft));max-width:42ch}
 .copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0}
 .copy__tags li{font-size:.83rem;font-weight:500;padding:8px 14px;border-radius:999px;
   background:color-mix(in srgb,#fff 70%,transparent);border:1px solid color-mix(in srgb,var(--terra) 25%,transparent);
@@ -128,6 +139,15 @@ main{position:relative;z-index:10}
 /* Booking widget (scene 4) */
 .book{margin-top:22px;background:color-mix(in srgb,#fff 66%,transparent);
   border:1px solid color-mix(in srgb,var(--terra) 25%,transparent);border-radius:22px;padding:20px}
+.book__row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.book__field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.book__row .book__field{margin-bottom:0}
+.book__field label{font-size:.82rem;font-weight:800;color:var(--green)}
+.book__field input,.book__field select{font:inherit;font-size:.95rem;color:var(--ink);background:#fffdf8;
+  border:1.5px solid color-mix(in srgb,var(--ink) 25%,transparent);border-radius:14px;padding:13px 15px;width:100%}
+.book__field input:invalid:not(:placeholder-shown){border-color:#b3261e}
+.book__err{margin:12px 0 0;font-size:.85rem;font-weight:700;color:#b3261e}
+@media (prefers-color-scheme:dark){.book__field input:invalid:not(:placeholder-shown){border-color:#ff8a80}.book__err{color:#ff8a80}}
 .book__label{margin:0 0 10px;font-size:.82rem;font-weight:800;color:var(--green)}
 .book__label + .book__pills{margin-bottom:16px}
 .book__pills{display:flex;flex-wrap:wrap;gap:8px}
@@ -142,7 +162,7 @@ main{position:relative;z-index:10}
 @media (max-width:860px){
   .stickycta{display:flex;position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));right:16px;left:16px;z-index:55;
     align-items:center;justify-content:center;gap:9px;background:var(--green);color:#fff;text-decoration:none;
-    font-weight:800;font-size:1rem;padding:15px;border-radius:999px;box-shadow:0 10px 28px rgba(47,93,80,.4)}
+    font-weight:800;font-size:1rem;padding:18px;border-radius:999px;box-shadow:0 10px 28px rgba(47,93,80,.4)}
   .stickycta i{font-size:1.3rem}
 }
 
@@ -165,6 +185,7 @@ main{position:relative;z-index:10}
   .nav{display:none}
   .hint{display:none}
   .services{grid-template-columns:1fr}
+  .book__row{grid-template-columns:1fr}
   .copy{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
   .stage__veil{background:linear-gradient(0deg,var(--bg) 30%,transparent 65%)}
   .copy{width:auto;margin:0;padding:0 20px;min-height:100dvh;justify-content:flex-end;padding-bottom:15dvh}

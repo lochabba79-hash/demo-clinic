@@ -1,10 +1,103 @@
-/* El-Chifa scroll engine — lets-scroll pattern, stills-only build.
-   Scroll position drives one continuous journey: scene cross-dissolve +
-   slow visual drift + copy reveal + route rail. No video clips in v1
-   (manual-asset path); <video> slots can be added later per HANDOFF.md.
-   Uses transform/opacity only. Honors prefers-reduced-motion. */
+/* El-Chifa scroll engine + booking + AR/FR toggle.
+   Scroll drives one continuous journey (stills-only v1; video slots per HANDOFF.md).
+   Transform/opacity only. Honors prefers-reduced-motion. */
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- i18n (AR default, FR toggle, persisted) ---------- */
+  var STR = {
+    skip: { ar: 'تخطَّ إلى المحتوى', fr: 'Aller au contenu' },
+    brandSub: { ar: 'سطيف · نموذج تجريبي', fr: 'Sétif · démo' },
+    nav0: { ar: 'الاستقبال', fr: 'Accueil' },
+    nav1: { ar: 'الفحص', fr: 'Examen' },
+    nav2: { ar: 'المتابعة', fr: 'Suivi' },
+    nav3: { ar: 'احجز', fr: 'Réserver' },
+    book: { ar: 'احجز موعد', fr: 'Réserver' },
+    hint: { ar: 'مرّر للأسفل لاكتشاف العيادة', fr: 'Faites défiler pour découvrir la clinique' },
+    heroTitle: { ar: 'طبٌّ بطابعٍ عائلي، <em>من قلب سطيف</em>', fr: 'Une médecine <em>familiale</em>, au cœur de Sétif' },
+    heroBody: { ar: 'استقبال دافئ، مواعيد تحترم وقتك، وفريق يشرح لك كل خطوة قبل أن تبدأ. هذه رحلتك داخل العيادة — مرّر لتكملها.', fr: 'Accueil chaleureux, rendez-vous à l’heure et une équipe qui vous explique chaque étape. Voici votre parcours — faites défiler.' },
+    tag0: { ar: 'السبت – الخميس · 8:00 – 17:00', fr: 'Sam – Jeu · 8h00 – 17h00' },
+    tag1: { ar: 'وسط سطيف', fr: 'Centre de Sétif' },
+    tag2: { ar: 'استشارة أولى ميسّرة', fr: 'Première consultation facilitée' },
+    ctaWa: { ar: 'احجز عبر واتساب', fr: 'Réserver sur WhatsApp' },
+    ctaExam: { ar: 'اكتشف الفحص', fr: 'Découvrir l’examen' },
+    eb2: { ar: 'غرفة الفحص', fr: 'Salle d’examen' },
+    t2: { ar: 'فحصٌ دقيق بلا استعجال', fr: 'Un examen rigoureux, sans précipitation' },
+    b2: { ar: 'طبيب يستمع أولاً، تشخيص واضح بلغة تفهمها، وخطة علاج مكتوبة تأخذها معك. لا مصطلحات مبهمة، لا قرارات مستعجلة.', fr: 'Un médecin qui écoute d’abord, un diagnostic clair dans vos mots, et un plan écrit à emporter. Ni jargon, ni décisions hâtives.' },
+    svc0: { ar: 'استشارة عامة', fr: 'Consultation générale' },
+    svc1: { ar: 'فحص شامل + تخطيط', fr: 'Bilan complet + ECG' },
+    svc2: { ar: 'حصة متابعة', fr: 'Séance de suivi' },
+    svcNote: { ar: 'أسعار استرشادية للعرض — تُضبط حسب العيادة الحقيقية.', fr: 'Tarifs indicatifs pour la démo — ajustés selon la vraie clinique.' },
+    eb3: { ar: 'الرعاية والمتابعة', fr: 'Soins et suivi' },
+    t3: { ar: 'نرافقك بعد أن تغادر', fr: 'On vous accompagne après votre départ' },
+    b3: { ar: 'رسالة متابعة بعد كل زيارة، تذكير بموعد المراجعة، وخط مفتوح لأي سؤال. الشفاء رحلة — ونحن معك فيها خطوة بخطوة.', fr: 'Message de suivi après chaque visite, rappel du contrôle, ligne ouverte pour toute question. La guérison est un voyage — on le fait avec vous.' },
+    fq0: { ar: 'هل أحتاج موعداً مسبقاً؟', fr: 'Faut-il prendre rendez-vous ?' },
+    fa0: { ar: 'نعم، الحجز المسبق عبر واتساب يضمن دورك ويختصر الانتظار. الحالات المستعجلة تُستقبل مباشرة.', fr: 'Oui, la réservation WhatsApp garantit votre tour et réduit l’attente. Les urgences sont reçues directement.' },
+    fq1: { ar: 'ماذا أُحضر معي في أول زيارة؟', fr: 'Quoi apporter à la première visite ?' },
+    fa1: { ar: 'بطاقة التعريف، وصفاتك وتحاليلك السابقة إن وجدت، وقائمة الأدوية التي تتناولها حالياً.', fr: 'Pièce d’identité, ordonnances et analyses précédentes si vous en avez, et la liste de vos médicaments actuels.' },
+    fq2: { ar: 'كيف تتم المتابعة بعد الفحص؟', fr: 'Comment se fait le suivi après l’examen ?' },
+    fa2: { ar: 'رسالة واتساب خلال 48 ساعة، تذكير بموعد المراجعة، وملف صحي واحد يجمع كل زياراتك.', fr: 'Message WhatsApp sous 48 h, rappel du contrôle, et un dossier unique pour toutes vos visites.' },
+    fq3: { ar: 'كيف أدفع؟ وهل يمكن الإلغاء؟', fr: 'Paiement et annulation ?' },
+    fa3: { ar: 'الدفع نقداً أو عبر بريدي موب بعد الاستشارة. الإلغاء مجاني برسالة قبل الموعد بـ 24 ساعة.', fr: 'Espèces ou BaridiMob après la consultation. Annulation gratuite par message 24 h avant.' },
+    fq4: { ar: 'هل تتعاملون مع التأمين؟', fr: 'Travaillez-vous avec les assurances ?' },
+    fa4: { ar: 'نعم، نوفر فاتورة مفصلة صالحة للتعويض، ونساعدك في تجهيز ملف الضمان الاجتماعي.', fr: 'Oui, facture détaillée valable pour remboursement, et aide pour votre dossier de sécurité sociale.' },
+    eb4: { ar: 'الخطوة الأخيرة', fr: 'Dernière étape' },
+    t4: { ar: 'موعدك على بُعد رسالة واحدة', fr: 'Votre rendez-vous à un message près' },
+    b4: { ar: 'املأ بياناتك، اختر اليوم والفترة، ثم أكّد عبر واتساب — نرد عليك خلال ساعات العمل.', fr: 'Remplissez vos infos, choisissez jour et créneau, puis confirmez sur WhatsApp — réponse pendant les heures d’ouverture.' },
+    bkName: { ar: 'الاسم الكامل', fr: 'Nom complet' },
+    bkNamePh: { ar: 'مثال: أمين بن علي', fr: 'Ex : Amine Ben Ali' },
+    bkPhone: { ar: 'رقم الهاتف', fr: 'Téléphone' },
+    bkReason: { ar: 'سبب الزيارة', fr: 'Motif de visite' },
+    rs0: { ar: 'استشارة عامة', fr: 'Consultation générale' },
+    rs1: { ar: 'فحص شامل', fr: 'Bilan complet' },
+    rs2: { ar: 'متابعة', fr: 'Suivi' },
+    rs3: { ar: 'أخرى', fr: 'Autre' },
+    bkDay: { ar: 'اختر اليوم', fr: 'Choisissez le jour' },
+    bkTime: { ar: 'اختر الفترة', fr: 'Choisissez le créneau' },
+    bkOrCall: { ar: 'أو اتصل مباشرة:', fr: 'Ou appelez directement :' },
+    foot: { ar: 'عيادة الشفاء — سطيف · صُنعت بواسطة Ibdaa Creations · نموذج عرض تجريبي', fr: 'Clinique El-Chifa — Sétif · par Ibdaa Creations · maquette de démonstration' },
+    days: { ar: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'], fr: ['Samedi', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi'] },
+    times: { ar: ['صباحاً · 8–11', 'منتصف النهار · 11–14', 'مساءً · 14–17'], fr: ['Matin · 8–11', 'Midi · 11–14', 'Après-midi · 14–17'] },
+    errNeed: { ar: 'يرجى إدخال الاسم ورقم هاتف صحيح (05/06/07 + 8 أرقام).', fr: 'Veuillez saisir nom et téléphone valides (05/06/07 + 8 chiffres).' },
+    goPrefix: { ar: 'تأكيد', fr: 'Confirmer' },
+    bookMsg: {
+      ar: function (n, p, r, d, t) { return 'حجز موعد: ' + n + '، ' + p + '، ' + r + '، ' + d + ' ' + t; },
+      fr: function (n, p, r, d, t) { return 'RDV: ' + n + ', ' + p + ', ' + r + ', ' + d + ' ' + t; }
+    }
+  };
+  var lang = 'ar';
+  try { lang = localStorage.getItem('chifa-lang') || 'ar'; } catch (e) {}
+  var toggle = document.getElementById('langToggle');
+
+  function currentDay() {
+    var b = document.querySelector('#bookDays button.is-sel');
+    return b ? b.dataset.i : 0;
+  }
+  function currentTime() {
+    var b = document.querySelector('#bookTimes button.is-sel');
+    return b ? b.dataset.i : 0;
+  }
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n'), v = STR[k] && STR[k][lang];
+      if (v == null) return;
+      if (k === 'bkNamePh') { el.placeholder = v; return; }
+      el.innerHTML = v;
+    });
+    // Rebuild day/time pills in the right language, keeping selection
+    var di = currentDay(), ti = currentTime();
+    var db = document.getElementById('bookDays'), tb = document.getElementById('bookTimes');
+    if (db) db.querySelectorAll('button').forEach(function (b, i) { b.textContent = STR.days[lang][i]; b.dataset.i = i; b.classList.toggle('is-sel', i == di); });
+    if (tb) tb.querySelectorAll('button').forEach(function (b, i) { b.textContent = STR.times[lang][i]; b.dataset.i = i; b.classList.toggle('is-sel', i == ti); });
+    if (toggle) toggle.textContent = lang === 'ar' ? 'FR' : 'عربي';
+    refreshBooking();
+    try { localStorage.setItem('chifa-lang', lang); } catch (e) {}
+  }
+  if (toggle) toggle.addEventListener('click', function () { lang = lang === 'ar' ? 'fr' : 'ar'; applyLang(); });
+
+  /* ---------- scroll engine ---------- */
   var copies = Array.prototype.slice.call(document.querySelectorAll('.copy'));
   var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
   var visuals = Array.prototype.slice.call(document.querySelectorAll('.scene__visual'));
@@ -20,11 +113,10 @@
     b.addEventListener('click', function () { goto(parseInt(b.dataset.goto, 10)); });
   });
 
-  // GSAP soft entrance for copy blocks (progressive enhancement only)
   if (window.gsap && window.ScrollTrigger && !reduce) {
     gsap.registerPlugin(ScrollTrigger);
     copies.forEach(function (c) {
-      gsap.from(c.querySelectorAll('.copy__title,.copy__body,.copy__tags,.copy__cta'), {
+      gsap.from(c.querySelectorAll('.copy__title,.copy__body,.copy__tags,.copy__cta,.services,.faq,.book'), {
         y: 34, opacity: 0, duration: .9, stagger: .08, ease: 'power3.out',
         scrollTrigger: { trigger: c, start: 'top 72%' }
       });
@@ -38,13 +130,11 @@
     if (progress) progress.style.setProperty('--p', max > 0 ? (y / max).toFixed(3) : 0);
     if (hint) hint.style.opacity = Math.max(0, 1 - y / (0.5 * vh));
 
-    // Nearest section = active scene (continuous flight metaphor)
     var nearest = 0, best = Infinity;
     copies.forEach(function (c, i) {
       var r = c.getBoundingClientRect();
       var d = Math.abs(r.top + r.height / 2 - vh / 2);
       if (d < best) { best = d; nearest = i; }
-      // Copy fade by distance from viewport center
       var vis = Math.max(0, 1 - d / (vh * 0.75));
       c.style.opacity = reduce ? 1 : (0.12 + 0.88 * vis).toFixed(2);
       if (!reduce) c.style.transform = 'translateY(' + ((1 - vis) * 30).toFixed(1) + 'px)';
@@ -58,7 +148,6 @@
       });
     }
 
-    // Slow drift = camera glide illusion (seamless, velocity never reverses)
     if (!reduce) {
       var p = max > 0 ? y / max : 0;
       visuals.forEach(function (v, i) {
@@ -74,8 +163,7 @@
   }, { passive: true });
   window.addEventListener('resize', read);
 
-  // Progressive stills: if assets/still_*.png exist (see HANDOFF.md), layer them
-  // over the CSS scenes automatically. Missing files remove themselves silently.
+  /* ---------- progressive stills ---------- */
   Array.prototype.slice.call(document.querySelectorAll('.scene__photo')).forEach(function (img) {
     var src = img.getAttribute('data-photo');
     if (!src) { img.remove(); return; }
@@ -85,30 +173,60 @@
     probe.src = src;
   });
 
-  // Booking widget: day + period -> prefilled WhatsApp message
-  var day = 'السبت', time = 'صباحاً · 8–11';
+  /* ---------- booking widget ---------- */
   var go = document.getElementById('bookGo');
   var goText = document.getElementById('bookGoText');
-  function refreshBooking() {
-    var msg = 'حجز موعد: ' + day + ' ' + time;
-    if (go) go.href = 'https://wa.me/213000000000?text=' + encodeURIComponent(msg);
-    if (goText) goText.textContent = 'تأكيد: ' + day + ' ' + time.split(' ·')[0];
+  var errBox = document.getElementById('bookErr');
+  var nameI = document.getElementById('bkName');
+  var phoneI = document.getElementById('bkPhone');
+  var reasonI = document.getElementById('bkReason');
+
+  function valid() {
+    return nameI && nameI.value.trim().length >= 3 &&
+           phoneI && /^0[567][0-9]{8}$/.test(phoneI.value.replace(/[\s-]/g, ''));
   }
-  function pills(id, set) {
+  function refreshBooking() {
+    var d = STR.days[lang][currentDay()].split(' ')[0] || STR.days[lang][currentDay()];
+    // Keep short day label for the button (first word is enough in both languages)
+    var dayShort = STR.days[lang][currentDay()];
+    var timeFull = STR.times[lang][currentTime()];
+    var timeShort = timeFull.split(' ·')[0];
+    var r = reasonI ? reasonI.options[reasonI.selectedIndex].text : '';
+    var n = nameI && nameI.value.trim() ? nameI.value.trim() : '…';
+    var p = phoneI && phoneI.value.trim() ? phoneI.value.trim() : '…';
+    var msg = STR.bookMsg[lang](n, p, r, dayShort, timeFull);
+    if (go) go.href = 'https://wa.me/213000000000?text=' + encodeURIComponent(msg);
+    if (goText) goText.textContent = STR.goPrefix[lang] + ': ' + dayShort + ' ' + timeShort;
+    void d;
+  }
+  function pills(id) {
     var box = document.getElementById(id);
     if (!box) return;
+    box.querySelectorAll('button').forEach(function (b, i) { b.dataset.i = i; });
     box.addEventListener('click', function (e) {
       var b = e.target.closest('button');
       if (!b) return;
       box.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-sel'); });
       b.classList.add('is-sel');
-      set(b.textContent.trim());
+      if (errBox) errBox.hidden = true;
       refreshBooking();
     });
   }
-  pills('bookDays', function (v) { day = v; });
-  pills('bookTimes', function (v) { time = v; });
-  refreshBooking();
+  pills('bookDays');
+  pills('bookTimes');
+  ['bkName', 'bkPhone'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', function () { if (errBox) errBox.hidden = true; refreshBooking(); });
+  });
+  if (reasonI) reasonI.addEventListener('change', refreshBooking);
+  if (go) go.addEventListener('click', function (e) {
+    if (!valid()) {
+      e.preventDefault();
+      if (errBox) { errBox.textContent = STR.errNeed[lang]; errBox.hidden = false; }
+      (nameI && nameI.value.trim().length < 3 ? nameI : phoneI).focus();
+    }
+  });
 
+  applyLang();
   read();
 })();
