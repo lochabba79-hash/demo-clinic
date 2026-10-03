@@ -1,0 +1,178 @@
+/* Clinique El-Chifa — warm traditional Arabic clinic
+   Tokens: paper #FAF5EB, ink #2B2320, terracotta #B4552D, deep green #2F5D50, gold #C9A227 */
+:root{
+  --bg:#FAF5EB; --ink:#2B2320; --ink-soft:#6f6157;
+  --terra:#B4552D; --green:#2F5D50; --gold:#C9A227;
+  --font-display:"Amiri",serif; --font-body:"Tajawal",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.skip{position:fixed;top:-60px;right:16px;z-index:100;background:var(--ink);color:#fff;
+  padding:10px 18px;border-radius:0 0 12px 12px;text-decoration:none;font-weight:700;transition:top .25s}
+.skip:focus{top:0}
+html{scroll-behavior:smooth}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden}
+.progress{position:fixed;top:0;right:0;left:0;height:3px;z-index:60;background:transparent}
+.progress::before{content:"";display:block;height:100%;width:100%;transform-origin:right;transform:scaleX(var(--p,0));background:linear-gradient(-90deg,var(--terra),var(--gold))}
+
+/* Top bar: floating warm pill, detached */
+.topbar{position:fixed;top:14px;right:50%;transform:translateX(50%);z-index:50;display:flex;align-items:center;gap:14px;
+  width:min(1060px,calc(100% - 24px));padding:10px 14px;border-radius:999px;
+  background:color-mix(in srgb,#fff 72%,transparent);backdrop-filter:blur(12px);
+  border:1px solid color-mix(in srgb,var(--terra) 18%,transparent)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand__mark{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(150deg,var(--terra),var(--green));font-size:20px}
+.brand__name{font-family:var(--font-display);font-weight:700;font-size:1.15rem;line-height:1}
+.brand__name small{display:block;font-family:var(--font-body);font-weight:500;font-size:.68rem;color:var(--ink-soft)}
+.nav{display:flex;gap:2px;margin-inline-start:auto}
+.nav button{font:inherit;font-size:.85rem;color:var(--ink-soft);border:0;background:transparent;cursor:pointer;padding:8px 14px;border-radius:999px}
+.nav button:hover{color:var(--ink)}
+.nav button.is-active{color:#fff;background:var(--terra)}
+.topcta{text-decoration:none;font-weight:700;font-size:.88rem;color:#fff;background:var(--green);
+  padding:10px 20px;border-radius:999px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.topcta i{font-size:1.1rem}
+
+/* Pinned cinematic stage */
+.stage{position:fixed;inset:0;z-index:1;pointer-events:none}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;overflow:hidden}
+.scene.is-active{opacity:1}
+.scene__visual{position:absolute;inset:-6%;will-change:transform}
+.scene__visual--reception{background:
+  radial-gradient(55% 45% at 70% 20%,#e8c98f 0%,transparent 70%),
+  radial-gradient(45% 40% at 25% 75%,#d99a63 0%,transparent 70%),
+  linear-gradient(160deg,#f3e3c3,#e5c193 55%,#c98a54)}
+.scene__visual--exam{background:
+  radial-gradient(50% 42% at 30% 25%,#9fc3b4 0%,transparent 70%),
+  radial-gradient(45% 40% at 75% 70%,#7ba794 0%,transparent 70%),
+  linear-gradient(160deg,#dcebe2,#b9d4c5 55%,#7ba08e)}
+.scene__visual--care{background:
+  radial-gradient(55% 45% at 65% 30%,#f0d9a8 0%,transparent 70%),
+  radial-gradient(40% 38% at 25% 70%,#d9a05f 0%,transparent 70%),
+  linear-gradient(160deg,#f6ecd4,#ecd3a0 55%,#cf9250)}
+.scene__visual--cta{background:
+  radial-gradient(55% 45% at 50% 25%,#e6b877 0%,transparent 70%),
+  radial-gradient(50% 45% at 50% 80%,#8a3d22 0%,transparent 75%),
+  linear-gradient(165deg,#3d2c22,#6e3a24 55%,#2F5D50)}
+/* Per-scene architectural motif: faint arch silhouettes, one per scene */
+.scene__arch{position:absolute;bottom:-4%;width:44vmin;height:72vmin;opacity:.28;
+  border:3px solid rgba(255,255,255,.55);border-bottom:0;border-radius:50% 50% 0 0 / 32% 32% 0 0}
+.scene[data-scene="0"] .scene__arch{right:8%}
+.scene__arch--window{left:10%;width:34vmin;height:52vmin;top:12%;bottom:auto;
+  border-radius:46% 46% 12px 12px;background:rgba(255,255,255,.14)}
+.scene__arch--lamp{right:12%;width:16vmin;height:16vmin;top:16%;bottom:auto;border-radius:50%;
+  background:radial-gradient(circle,#ffe9b8 0%,rgba(255,233,184,0) 70%);border:0;opacity:.8}
+.scene__arch--door{right:50%;transform:translateX(50%);width:40vmin;height:66vmin;
+  background:linear-gradient(180deg,rgba(255,220,150,.35),rgba(255,220,150,.05));opacity:.5}
+/* Real AI stills auto-layer over CSS scenes when present (see scroll.js) */
+.scene__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;
+  opacity:0;transition:opacity 1s ease}
+.scene__photo.has-photo{opacity:1}
+/* Traditional zellige accent: subtle 8-point star lattice via repeating gradients */
+.scene__visual::after{content:"";position:absolute;inset:0;opacity:.16;
+  background-image:repeating-linear-gradient(45deg,transparent 0 26px,rgba(255,255,255,.5) 26px 28px),
+                   repeating-linear-gradient(-45deg,transparent 0 26px,rgba(43,35,32,.35) 26px 28px)}
+.scene__grain{position:absolute;inset:0;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+.stage__veil{position:absolute;inset:0;background:linear-gradient(-90deg,var(--bg) 4%,transparent 45%)}
+
+/* Copy: right-anchored (RTL), one message per scene */
+main{position:relative;z-index:10}
+.copy{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;
+  width:min(480px,calc(100% - 40px));margin-inline-start:clamp(20px,6vw,90px);
+  padding:110px 0 60px;opacity:.12;transform:translateY(30px);transition:opacity .5s ease,transform .6s cubic-bezier(.32,.72,0,1)}
+.copy.is-active{opacity:1;transform:none}
+.copy__num{font-size:.75rem;letter-spacing:.15em;color:var(--ink-soft)}
+.copy__eyebrow{display:inline-block;margin-top:14px;font-size:.78rem;font-weight:700;letter-spacing:.06em;
+  color:var(--green);background:color-mix(in srgb,var(--green) 10%,#fff);
+  border:1px solid color-mix(in srgb,var(--green) 30%,transparent);padding:6px 14px;border-radius:999px}
+.copy__title{font-family:var(--font-display);font-weight:700;font-size:clamp(2.1rem,5.2vw,3.4rem);
+  line-height:1.35;margin:16px 0 0;text-wrap:balance}
+.copy__title em{font-style:normal;color:var(--terra)}
+.copy__body{margin:16px 0 0;font-size:clamp(1rem,1.4vw,1.12rem);line-height:1.9;color:color-mix(in srgb,var(--ink) 82%,var(--ink-soft));max-width:42ch}
+.copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0}
+.copy__tags li{font-size:.83rem;font-weight:500;padding:8px 14px;border-radius:999px;
+  background:color-mix(in srgb,#fff 70%,transparent);border:1px solid color-mix(in srgb,var(--terra) 25%,transparent);
+  display:flex;align-items:center;gap:7px}
+.copy__tags i{font-size:1rem;color:var(--terra)}
+.copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{text-decoration:none;font-weight:700;font-size:.95rem;padding:14px 26px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:9px;transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.btn i{font-size:1.15rem}
+.btn--primary{color:#fff;background:var(--green)}
+.btn--primary:hover{transform:translateY(-2px)}
+.btn--primary:active{transform:scale(.98)}
+.btn--ghost{color:var(--ink);border:1.5px solid color-mix(in srgb,var(--ink) 30%,transparent)}
+.btn--wide{width:100%;justify-content:center;font-size:1.05rem}
+.note{margin-top:14px;font-size:.8rem;color:var(--ink-soft)}
+.note a{color:var(--green);font-weight:700}
+.foot{margin-top:44px;font-size:.78rem;color:var(--ink-soft)}
+
+/* Services price grid (scene 2) */
+.services{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 0;padding:0}
+.services li{background:color-mix(in srgb,#fff 72%,transparent);border:1px solid color-mix(in srgb,var(--terra) 22%,transparent);
+  border-radius:18px;padding:14px 12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.services i{font-size:1.5rem;color:var(--green)}
+.services b{font-size:.88rem}
+.services span{font-size:.85rem;font-weight:800;color:var(--terra)}
+
+/* FAQ accordion (scene 3, native details = zero JS) */
+.faq{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.faq details{background:color-mix(in srgb,#fff 70%,transparent);border:1px solid color-mix(in srgb,var(--green) 25%,transparent);
+  border-radius:16px;padding:4px 16px}
+.faq summary{cursor:pointer;font-weight:700;font-size:.93rem;padding:12px 0;list-style:none;display:flex;align-items:center;gap:8px}
+.faq summary::before{content:"+";color:var(--terra);font-weight:800;font-size:1.1rem}
+.faq details[open] summary::before{content:"–"}
+.faq details p{margin:0 0 14px;font-size:.9rem;line-height:1.9;color:color-mix(in srgb,var(--ink) 82%,var(--ink-soft))}
+
+/* Booking widget (scene 4) */
+.book{margin-top:22px;background:color-mix(in srgb,#fff 66%,transparent);
+  border:1px solid color-mix(in srgb,var(--terra) 25%,transparent);border-radius:22px;padding:20px}
+.book__label{margin:0 0 10px;font-size:.82rem;font-weight:800;color:var(--green)}
+.book__label + .book__pills{margin-bottom:16px}
+.book__pills{display:flex;flex-wrap:wrap;gap:8px}
+.book__pills button{font:inherit;font-size:.85rem;font-weight:500;padding:9px 15px;border-radius:999px;cursor:pointer;
+  background:transparent;color:var(--ink);border:1.5px solid color-mix(in srgb,var(--ink) 25%,transparent)}
+.book__pills button.is-sel{background:var(--terra);border-color:var(--terra);color:#fff;font-weight:700}
+.book .btn{margin-top:6px}
+.book .note{margin-bottom:0}
+
+/* Sticky mobile booking CTA */
+.stickycta{display:none}
+@media (max-width:860px){
+  .stickycta{display:flex;position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));right:16px;left:16px;z-index:55;
+    align-items:center;justify-content:center;gap:9px;background:var(--green);color:#fff;text-decoration:none;
+    font-weight:800;font-size:1rem;padding:15px;border-radius:999px;box-shadow:0 10px 28px rgba(47,93,80,.4)}
+  .stickycta i{font-size:1.3rem}
+}
+
+/* Route rail (left in RTL = visual left) */
+.route{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:20px}
+.route button{position:relative;border:0;background:transparent;cursor:pointer;width:16px;height:16px;display:grid;place-items:center}
+.route button i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--terra) 40%,transparent);transition:all .3s}
+.route button.is-active i{background:var(--terra);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--terra) 20%,transparent)}
+.route button span{position:absolute;left:26px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.78rem;
+  font-weight:700;color:var(--ink);background:color-mix(in srgb,#fff 88%,transparent);padding:5px 12px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s}
+.route button:hover span,.route button.is-active span{opacity:1}
+
+.hint{position:fixed;right:50%;transform:translateX(50%);bottom:22px;z-index:30;display:flex;flex-direction:column;
+  align-items:center;gap:8px;font-size:.75rem;letter-spacing:.08em;color:var(--ink-soft);transition:opacity .3s}
+.hint i{width:22px;height:34px;border-radius:12px;border:2px solid color-mix(in srgb,var(--ink) 30%,transparent);position:relative}
+.hint i::after{content:"";position:absolute;right:50%;transform:translateX(50%);top:7px;width:4px;height:7px;border-radius:2px;background:var(--terra);animation:wheel 1.7s ease-in-out infinite}
+@keyframes wheel{0%{opacity:0;top:6px}40%{opacity:1}100%{opacity:0;top:17px}}
+
+@media (max-width:860px){
+  .nav{display:none}
+  .hint{display:none}
+  .services{grid-template-columns:1fr}
+  .copy{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  .stage__veil{background:linear-gradient(0deg,var(--bg) 30%,transparent 65%)}
+  .copy{width:auto;margin:0;padding:0 20px;min-height:100dvh;justify-content:flex-end;padding-bottom:15dvh}
+  .route{display:none}
+  .topbar{width:calc(100% - 16px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .copy{transition:none;opacity:1;transform:none}
+  .hint i::after{animation:none}
+}

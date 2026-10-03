@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>عيادة الشفاء — سطيف | Clinique El-Chifa</title>
+  <meta name="description" content="عيادة الشفاء بسطيف — استقبال دافئ، فحص دقيق، متابعة مستمرة. اختر اليوم والفترة واحجز عبر واتساب." />
+  <meta name="theme-color" content="#FAF5EB" />
+  <meta property="og:title" content="عيادة الشفاء — سطيف" />
+  <meta property="og:description" content="طب بطابع عائلي من قلب سطيف. احجز موعدك عبر واتساب." />
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"MedicalClinic","name":"عيادة الشفاء — سطيف",
+   "address":{"@type":"PostalAddress","addressLocality":"سطيف","addressCountry":"DZ"},
+   "telephone":"+213000000000","openingHours":"Sa-Th 08:00-17:00",
+   "description":"نموذج عرض تجريبي — تُستبدل البيانات ببيانات العيادة الحقيقية."}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#s1">تخطَّ إلى المحتوى</a>
+  <div class="progress" id="progress"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top">
+      <span class="brand__mark"><i class="ph-light ph-plus-circle"></i></span>
+      <span class="brand__name">عيادة الشفاء <small>سطيف · نموذج تجريبي</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="أقسام الصفحة">
+      <button data-goto="0">الاستقبال</button>
+      <button data-goto="1">الفحص</button>
+      <button data-goto="2">المتابعة</button>
+      <button data-goto="3">احجز</button>
+    </nav>
+    <a class="topcta" href="https://wa.me/213000000000?text=%D8%A3ريد%20حجز%20موعد" target="_blank" rel="noopener">
+      <i class="ph-light ph-whatsapp-logo"></i> احجز موعد
+    </a>
+  </header>
+
+  <!-- Pinned cinematic stage: 4 scenes, one continuous warm journey.
+       Real AI stills (assets/still_*.png) auto-load over the CSS scenes when present. -->
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="scene is-active" data-scene="0">
+      <div class="scene__visual scene__visual--reception"><span class="scene__arch"></span></div>
+      <img class="scene__photo" data-photo="assets/still_reception.png" alt="" />
+      <div class="scene__grain"></div>
+    </div>
+    <div class="scene" data-scene="1">
+      <div class="scene__visual scene__visual--exam"><span class="scene__arch scene__arch--window"></span></div>
+      <img class="scene__photo" data-photo="assets/still_exam.png" alt="" />
+      <div class="scene__grain"></div>
+    </div>
+    <div class="scene" data-scene="2">
+      <div class="scene__visual scene__visual--care"><span class="scene__arch scene__arch--lamp"></span></div>
+      <img class="scene__photo" data-photo="assets/still_care.png" alt="" />
+      <div class="scene__grain"></div>
+    </div>
+    <div class="scene" data-scene="3">
+      <div class="scene__visual scene__visual--cta"><span class="scene__arch scene__arch--door"></span></div>
+      <img class="scene__photo" data-photo="assets/still_cta.png" alt="" />
+      <div class="scene__grain"></div>
+    </div>
+    <div class="stage__veil"></div>
+  </div>
+
+  <aside class="route" id="route" aria-label="أقسام الصفحة">
+    <button class="is-active" data-goto="0"><span>الاستقبال</span><i></i></button>
+    <button data-goto="1"><span>الفحص</span><i></i></button>
+    <button data-goto="2"><span>المتابعة</span><i></i></button>
+    <button data-goto="3"><span>احجز</span><i></i></button>
+  </aside>
+
+  <div class="hint" id="hint"><span>مرّر للأسفل لاكتشاف العيادة</span><i></i></div>
+  <a class="stickycta" href="https://wa.me/213000000000?text=%D8%A3ريد%20حجز%20موعد" target="_blank" rel="noopener">
+    <i class="ph-light ph-whatsapp-logo"></i> احجز عبر واتساب
+  </a>
+
+  <main id="top">
+    <!-- 01 / RECEPTION -->
+    <section class="copy" data-index="0" id="s1">
+      <span class="copy__num">01 / 04</span>
+      <h1 class="copy__title">طبٌّ بطابعٍ عائلي، <em>من قلب سطيف</em></h1>
+      <p class="copy__body">استقبال دافئ، مواعيد تحترم وقتك، وفريق يشرح لك كل خطوة قبل أن تبدأ. هذه رحلتك داخل العيادة — مرّر لتكملها.</p>
+      <ul class="copy__tags">
+        <li><i class="ph-light ph-clock"></i> السبت – الخميس · 8:00 – 17:00</li>
+        <li><i class="ph-light ph-map-pin"></i> وسط سطيف</li>
+        <li><i class="ph-light ph-phone"></i> استشارة أولى ميسّرة</li>
+      </ul>
+      <div class="copy__cta">
+        <a class="btn btn--primary" href="https://wa.me/213000000000?text=%D8%A3ريد%20حجز%20موعد" target="_blank" rel="noopener"><i class="ph-light ph-whatsapp-logo"></i> احجز عبر واتساب</a>
+        <a class="btn btn--ghost" href="#s2"><i class="ph-light ph-stethoscope"></i> اكتشف الفحص</a>
+      </div>
+    </section>
+
+    <!-- 02 / EXAM + services -->
+    <section class="copy" data-index="1" id="s2">
+      <span class="copy__eyebrow">غرفة الفحص</span>
+      <h2 class="copy__title">فحصٌ دقيق بلا استعجال</h2>
+      <p class="copy__body">طبيب يستمع أولاً، تشخيص واضح بلغة تفهمها، وخطة علاج مكتوبة تأخذها معك. لا مصطلحات مبهمة، لا قرارات مستعجلة.</p>
+      <ul class="services">
+        <li><i class="ph-light ph-first-aid"></i><b>استشارة عامة</b><span>2000 دج</span></li>
+        <li><i class="ph-light ph-heartbeat"></i><b>فحص شامل + تخطيط</b><span>3500 دج</span></li>
+        <li><i class="ph-light ph-clipboard-text"></i><b>حصة متابعة</b><span>1000 دج</span></li>
+      </ul>
+      <p class="note">أسعار استرشادية للعرض — تُضبط حسب العيادة الحقيقية.</p>
+    </section>
+
+    <!-- 03 / CARE + FAQ -->
+    <section class="copy" data-index="2" id="s3">
+      <span class="copy__eyebrow">الرعاية والمتابعة</span>
+      <h2 class="copy__title">نرافقك بعد أن تغادر</h2>
+      <p class="copy__body">رسالة متابعة بعد كل زيارة، تذكير بموعد المراجعة، وخط مفتوح لأي سؤال. الشفاء رحلة — ونحن معك فيها خطوة بخطوة.</p>
+      <div class="faq">
+        <details>
+          <summary>هل أحتاج موعداً مسبقاً؟</summary>
+          <p>نعم، الحجز المسبق عبر واتساب يضمن دورك ويختصر الانتظار. الحالات المستعجلة تُستقبل مباشرة.</p>
+        </details>
+        <details>
+          <summary>ماذا أُحضر معي في أول زيارة؟</summary>
+          <p>بطاقة التعريف، وصفاتك وتحاليلك السابقة إن وجدت، وقائمة الأدوية التي تتناولها حالياً.</p>
+        </details>
+        <details>
+          <summary>كيف تتم المتابعة بعد الفحص؟</summary>
+          <p>رسالة واتساب خلال 48 ساعة، تذكير بموعد المراجعة، وملف صحي واحد يجمع كل زياراتك.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- 04 / BOOKING -->
+    <section class="copy" data-index="3" id="s4">
+      <span class="copy__eyebrow">الخطوة الأخيرة</span>
+      <h2 class="copy__title">موعدك على بُعد رسالة واحدة</h2>
+      <p class="copy__body">اختر اليوم والفترة، ثم أكّد عبر واتساب — نرد عليك خلال ساعات العمل.</p>
+      <div class="book" id="book">
+        <p class="book__label">1 · اختر اليوم</p>
+        <div class="book__pills" id="bookDays" role="group" aria-label="يوم الموعد">
+          <button type="button" class="is-sel">السبت</button>
+          <button type="button">الأحد</button>
+          <button type="button">الاثنين</button>
+          <button type="button">الثلاثاء</button>
+          <button type="button">الأربعاء</button>
+          <button type="button">الخميس</button>
+        </div>
+        <p class="book__label">2 · اختر الفترة</p>
+        <div class="book__pills" id="bookTimes" role="group" aria-label="فترة الموعد">
+          <button type="button" class="is-sel">صباحاً · 8–11</button>
+          <button type="button">منتصف النهار · 11–14</button>
+          <button type="button">مساءً · 14–17</button>
+        </div>
+        <a class="btn btn--primary btn--wide" id="bookGo" href="https://wa.me/213000000000?text=%D8%AD%D8%AC%D8%B2" target="_blank" rel="noopener">
+          <i class="ph-light ph-whatsapp-logo"></i><span id="bookGoText">تأكيد: السبت صباحاً</span>
+        </a>
+        <p class="note">أو اتصل مباشرة: <a href="tel:+213000000000" dir="ltr">+213 00 00 00 00</a></p>
+      </div>
+      <footer class="foot">عيادة الشفاء — سطيف · صُنعت بواسطة Ibdaa Creations · نموذج عرض تجريبي</footer>
+    </section>
+  </main>
+
+  <script src="scroll.js"></script>
+</body>
+</html>
