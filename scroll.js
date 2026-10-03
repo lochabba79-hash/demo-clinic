@@ -92,6 +92,10 @@
     if (db) db.querySelectorAll('button').forEach(function (b, i) { b.textContent = STR.days[lang][i]; b.dataset.i = i; b.classList.toggle('is-sel', i == di); });
     if (tb) tb.querySelectorAll('button').forEach(function (b, i) { b.textContent = STR.times[lang][i]; b.dataset.i = i; b.classList.toggle('is-sel', i == ti); });
     if (toggle) toggle.textContent = lang === 'ar' ? 'FR' : 'عربي';
+    document.querySelectorAll('.scene__photo.has-photo').forEach(function (img) {
+      var key = (img.getAttribute('data-photo') || '').split('/').pop().split('.')[0];
+      if (PHOTO_ALT[key]) img.alt = PHOTO_ALT[key][lang];
+    });
     refreshBooking();
     try { localStorage.setItem('chifa-lang', lang); } catch (e) {}
   }
@@ -164,11 +168,22 @@
   window.addEventListener('resize', read);
 
   /* ---------- progressive stills ---------- */
+  var PHOTO_ALT = {
+    still_reception: { ar: 'قاعة انتظار دافئة في عيادة — صورة توضيحية', fr: 'Salle d’attente chaleureuse — photo d’illustration' },
+    still_exam: { ar: 'غرفة فحص طبي — صورة توضيحية', fr: 'Salle d’examen — photo d’illustration' },
+    still_care: { ar: 'طبيب يستمع لمريض باهتمام — صورة توضيحية', fr: 'Médecin à l’écoute — photo d’illustration' },
+    still_cta: { ar: 'مدخل عيادة — صورة توضيحية', fr: 'Entrée de clinique — photo d’illustration' }
+  };
   Array.prototype.slice.call(document.querySelectorAll('.scene__photo')).forEach(function (img) {
     var src = img.getAttribute('data-photo');
     if (!src) { img.remove(); return; }
+    var key = src.split('/').pop().split('.')[0];
     var probe = new Image();
-    probe.onload = function () { img.src = src; img.classList.add('has-photo'); };
+    probe.onload = function () {
+      img.src = src;
+      if (PHOTO_ALT[key]) img.alt = PHOTO_ALT[key][lang];
+      img.classList.add('has-photo');
+    };
     probe.onerror = function () { img.remove(); };
     probe.src = src;
   });
