@@ -11,7 +11,10 @@
 3. Replace the `wa.me/213000000000` number with the real clinic number before showing clients.
 
 ## Upgrade path
-- Render the 4 stills from `assets/still_prompts.md` (any free AI image tool) → save as `assets/still_*.png` → reference them in `index.html` scene visuals.
+- Stills are **shipped (v1.2)**: real Pexels photos (free license) in `assets/still_*.jpg`,
+  auto-layered by `scroll.js`. Credits: waiting room 26244207 · exam 12149118 ·
+  consultation 5593720 · clinic building 11953725 (photographers on pexels.com).
+  To swap in AI-generated stills later, overwrite the same filenames — no code changes.
 - Full video chain later per `HANDOFF.md` (paid, ~$18) — engine already supports it.
 
 ## External sources used

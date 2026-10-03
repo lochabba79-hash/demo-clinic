@@ -3,14 +3,14 @@
 Build ships **stills-only (v1, $0)**. The scroll engine already supports clips:
 drop rendered files into `assets/vid/` and wire them in `index.html` — no code changes needed beyond the config.
 
-## Current status
+## Current status — v1.2: Pexels stills shipped (free license, baked into repo)
 
 | Slot | File | Status |
 |---|---|---|
-| still_reception | `assets/still_reception.png` (3:2, ≥1536px, solid warm bg, no text) | pending — render from `assets/still_prompts.md` |
-| still_exam | `assets/still_exam.png` | pending |
-| still_care | `assets/still_care.png` | pending |
-| still_cta | `assets/still_cta.png` | pending |
+| still_reception | `assets/still_reception.jpg` — hospital waiting room (Pexels 26244207) | ✅ live, auto-layered |
+| still_exam | `assets/still_exam.jpg` — medical examination (Pexels 12149118) | ✅ live, auto-layered |
+| still_care | `assets/still_care.jpg` — doctor listening attentively (Pexels 5593720) | ✅ live, auto-layered |
+| still_cta | `assets/still_cta.jpg` — health clinic building, red door (Pexels 11953725) | ✅ live, auto-layered |
 | dive_0..3 | `assets/vid/dive_*.mp4` (~8s, 16:9, start-frame = still) | optional upgrade |
 | conn_1..3 | `assets/vid/conn_*.mp4` (~5s, start = dive_i last frame, end = dive_{i+1} first frame) | optional upgrade |
 
