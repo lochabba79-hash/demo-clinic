@@ -38,13 +38,14 @@
       <span class="brand__mark"><i class="ph-light ph-plus-circle"></i></span>
       <span class="brand__name">عيادة الشفاء <small data-i18n="brandSub">سطيف · نموذج تجريبي</small></span>
     </a>
-    <nav class="nav" id="nav" aria-label="أقسام الصفحة">
+    <nav class="nav" id="nav" data-i18n-attr="aria-label" data-i18n="navLabel" aria-label="أقسام الصفحة">
       <button data-goto="0" data-i18n="nav0">الاستقبال</button>
       <button data-goto="1" data-i18n="nav1">الفحص</button>
       <button data-goto="2" data-i18n="nav2">المتابعة</button>
       <button data-goto="3" data-i18n="nav3">احجز</button>
     </nav>
     <button class="langtoggle" id="langToggle" aria-label="Français / العربية">FR</button>
+    <button class="themetoggle" id="themeToggle" data-i18n-attr="aria-label" data-i18n="themeToggle" aria-label="تبديل المظهر"><i class="ph-light ph-moon"></i></button>
     <a class="topcta" href="https://wa.me/213000000000?text=%D8%A3ريد%20حجز%20موعد" target="_blank" rel="noopener">
       <i class="ph-light ph-whatsapp-logo"></i> <span data-i18n="book">احجز موعد</span>
     </a>
@@ -55,28 +56,28 @@
   <div class="stage" id="stage" aria-hidden="true">
     <div class="scene is-active" data-scene="0">
       <div class="scene__visual scene__visual--reception"><span class="scene__arch"></span></div>
-      <img class="scene__photo" data-photo="assets/still_reception.jpg" alt="" />
+      <img class="scene__photo" data-photo="assets/still_reception.webp" data-photo-sm="assets/still_reception-sm.webp" alt="" />
       <div class="scene__grain"></div>
     </div>
     <div class="scene" data-scene="1">
       <div class="scene__visual scene__visual--exam"><span class="scene__arch scene__arch--window"></span></div>
-      <img class="scene__photo" data-photo="assets/still_exam.jpg" alt="" />
+      <img class="scene__photo" data-photo="assets/still_exam.webp" data-photo-sm="assets/still_exam-sm.webp" alt="" />
       <div class="scene__grain"></div>
     </div>
     <div class="scene" data-scene="2">
       <div class="scene__visual scene__visual--care"><span class="scene__arch scene__arch--lamp"></span></div>
-      <img class="scene__photo" data-photo="assets/still_care.jpg" alt="" />
+      <img class="scene__photo" data-photo="assets/still_care.webp" data-photo-sm="assets/still_care-sm.webp" alt="" />
       <div class="scene__grain"></div>
     </div>
     <div class="scene" data-scene="3">
       <div class="scene__visual scene__visual--cta"><span class="scene__arch scene__arch--door"></span></div>
-      <img class="scene__photo" data-photo="assets/still_cta.jpg" alt="" />
+      <img class="scene__photo" data-photo="assets/still_cta.webp" data-photo-sm="assets/still_cta-sm.webp" alt="" />
       <div class="scene__grain"></div>
     </div>
     <div class="stage__veil"></div>
   </div>
 
-  <aside class="route" id="route" aria-label="أقسام الصفحة">
+  <aside class="route" id="route" data-i18n-attr="aria-label" data-i18n="routeLabel" aria-label="تقدم الرحلة">
     <button class="is-active" data-goto="0"><span data-i18n="nav0">الاستقبال</span><i></i></button>
     <button data-goto="1"><span data-i18n="nav1">الفحص</span><i></i></button>
     <button data-goto="2"><span data-i18n="nav2">المتابعة</span><i></i></button>
@@ -174,7 +175,7 @@
         </div>
         <p class="book__label" data-i18n="bkDay">اختر اليوم</p>
         <div class="book__pills" id="bookDays" role="group" aria-label="يوم الموعد">
-          <button type="button" class="is-sel">السبت</button>
+          <button type="button" class="is-sel" aria-pressed="true">السبت</button>
           <button type="button">الأحد</button>
           <button type="button">الاثنين</button>
           <button type="button">الثلاثاء</button>
@@ -183,7 +184,7 @@
         </div>
         <p class="book__label" data-i18n="bkTime">اختر الفترة</p>
         <div class="book__pills" id="bookTimes" role="group" aria-label="فترة الموعد">
-          <button type="button" class="is-sel">صباحاً · 8–11</button>
+          <button type="button" class="is-sel" aria-pressed="true">صباحاً · 8–11</button>
           <button type="button">منتصف النهار · 11–14</button>
           <button type="button">مساءً · 14–17</button>
         </div>

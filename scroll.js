@@ -56,6 +56,9 @@
     bkTime: { ar: 'اختر الفترة', fr: 'Choisissez le créneau' },
     bkOrCall: { ar: 'أو اتصل مباشرة:', fr: 'Ou appelez directement :' },
     foot: { ar: 'عيادة الشفاء — سطيف · صُنعت بواسطة Ibdaa Creations · نموذج عرض تجريبي', fr: 'Clinique El-Chifa — Sétif · par Ibdaa Creations · maquette de démonstration' },
+    navLabel: { ar: 'أقسام الصفحة', fr: 'Sections de la page' },
+    routeLabel: { ar: 'تقدم الرحلة', fr: 'Progression du parcours' },
+    themeToggle: { ar: 'تبديل المظهر', fr: 'Changer de thème' },
     days: { ar: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'], fr: ['Samedi', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi'] },
     times: { ar: ['صباحاً · 8–11', 'منتصف النهار · 11–14', 'مساءً · 14–17'], fr: ['Matin · 8–11', 'Midi · 11–14', 'Après-midi · 14–17'] },
     errNeed: { ar: 'يرجى إدخال الاسم ورقم هاتف صحيح (05/06/07 + 8 أرقام).', fr: 'Veuillez saisir nom et téléphone valides (05/06/07 + 8 chiffres).' },
@@ -84,6 +87,8 @@
       var k = el.getAttribute('data-i18n'), v = STR[k] && STR[k][lang];
       if (v == null) return;
       if (k === 'bkNamePh') { el.placeholder = v; return; }
+      var attr = el.getAttribute('data-i18n-attr');
+      if (attr) { el.setAttribute(attr, v); return; }
       el.innerHTML = v;
     });
     // Rebuild day/time pills in the right language, keeping selection
@@ -100,6 +105,27 @@
     try { localStorage.setItem('chifa-lang', lang); } catch (e) {}
   }
   if (toggle) toggle.addEventListener('click', function () { lang = lang === 'ar' ? 'fr' : 'ar'; applyLang(); });
+
+  /* ---------- theme: system / light / dark ---------- */
+  var themeBtn = document.getElementById('themeToggle');
+  var theme = 'system';
+  try { theme = localStorage.getItem('chifa-theme') || 'system'; } catch (e) {}
+  function paintThemeBtn() {
+    if (!themeBtn) return;
+    var icon = themeBtn.querySelector('i');
+    if (icon) icon.className = 'ph-light ' + (theme === 'dark' ? 'ph-sun' : theme === 'light' ? 'ph-moon' : 'ph-monitor');
+  }
+  function applyTheme() {
+    if (theme === 'system') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', theme);
+    paintThemeBtn();
+    try { localStorage.setItem('chifa-theme', theme); } catch (e) {}
+  }
+  if (themeBtn) themeBtn.addEventListener('click', function () {
+    theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
+    applyTheme();
+  });
+  applyTheme();
 
   /* ---------- scroll engine ---------- */
   var copies = Array.prototype.slice.call(document.querySelectorAll('.copy'));
@@ -139,8 +165,8 @@
       var r = c.getBoundingClientRect();
       var d = Math.abs(r.top + r.height / 2 - vh / 2);
       if (d < best) { best = d; nearest = i; }
-      var vis = Math.max(0, 1 - d / (vh * 0.75));
-      c.style.opacity = reduce ? 1 : (0.12 + 0.88 * vis).toFixed(2);
+      var vis = Math.max(0, 1 - d / (vh * 0.95));
+      c.style.opacity = reduce ? 1 : (0.18 + 0.82 * vis).toFixed(2);
       if (!reduce) c.style.transform = 'translateY(' + ((1 - vis) * 30).toFixed(1) + 'px)';
     });
 
@@ -148,8 +174,11 @@
       active = nearest;
       scenes.forEach(function (s, i) { s.classList.toggle('is-active', i === active); });
       routeBtns.forEach(function (b) {
-        b.classList.toggle('is-active', parseInt(b.dataset.goto, 10) === active);
+        var on = parseInt(b.dataset.goto, 10) === active;
+        b.classList.toggle('is-active', on);
+        if (b.closest('#nav')) { if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); }
       });
+      ensurePhotos();
     }
 
     if (!reduce) {
@@ -174,19 +203,31 @@
     still_care: { ar: 'طبيب يستمع لمريض باهتمام — صورة توضيحية', fr: 'Médecin à l’écoute — photo d’illustration' },
     still_cta: { ar: 'مدخل عيادة — صورة توضيحية', fr: 'Entrée de clinique — photo d’illustration' }
   };
-  Array.prototype.slice.call(document.querySelectorAll('.scene__photo')).forEach(function (img) {
-    var src = img.getAttribute('data-photo');
-    if (!src) { img.remove(); return; }
-    var key = src.split('/').pop().split('.')[0];
-    var probe = new Image();
-    probe.onload = function () {
-      img.src = src;
-      if (PHOTO_ALT[key]) img.alt = PHOTO_ALT[key][lang];
-      img.classList.add('has-photo');
-    };
-    probe.onerror = function () { img.remove(); };
-    probe.src = src;
+  /* ---------- progressive stills: active ±1 only, size by viewport ---------- */
+  var photoQueue = Array.prototype.slice.call(document.querySelectorAll('.scene__photo')).map(function (img, i) {
+    return { img: img, si: i, done: false };
   });
+  function photoSrc(p) {
+    var sm = window.innerWidth <= 860;
+    return p.img.getAttribute(sm ? 'data-photo-sm' : 'data-photo');
+  }
+  function ensurePhotos() {
+    photoQueue.forEach(function (p) {
+      if (p.done || Math.abs(p.si - active) > 1) return;
+      var src = photoSrc(p);
+      if (!src) { p.img.remove(); p.done = true; return; }
+      p.done = true;
+      var key = src.split('/').pop().split('.')[0].replace('-sm', '');
+      var probe = new Image();
+      probe.onload = function () {
+        p.img.src = src;
+        if (PHOTO_ALT[key]) p.img.alt = PHOTO_ALT[key][lang];
+        p.img.classList.add('has-photo');
+      };
+      probe.onerror = function () { p.img.remove(); };
+      probe.src = src;
+    });
+  }
 
   /* ---------- booking widget ---------- */
   var go = document.getElementById('bookGo');
@@ -217,12 +258,16 @@
   function pills(id) {
     var box = document.getElementById(id);
     if (!box) return;
-    box.querySelectorAll('button').forEach(function (b, i) { b.dataset.i = i; });
+    box.querySelectorAll('button').forEach(function (b, i) {
+      b.dataset.i = i;
+      b.setAttribute('aria-pressed', b.classList.contains('is-sel') ? 'true' : 'false');
+    });
     box.addEventListener('click', function (e) {
       var b = e.target.closest('button');
       if (!b) return;
-      box.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-sel'); });
+      box.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-sel'); x.setAttribute('aria-pressed', 'false'); });
       b.classList.add('is-sel');
+      b.setAttribute('aria-pressed', 'true');
       if (errBox) errBox.hidden = true;
       refreshBooking();
     });
