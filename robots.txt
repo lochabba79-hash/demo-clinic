@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lochabba79-hash.github.io/demo-clinic/sitemap.xml
