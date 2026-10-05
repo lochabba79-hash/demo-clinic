@@ -59,6 +59,40 @@
     navLabel: { ar: 'أقسام الصفحة', fr: 'Sections de la page' },
     routeLabel: { ar: 'تقدم الرحلة', fr: 'Progression du parcours' },
     themeToggle: { ar: 'تبديل المظهر', fr: 'Changer de thème' },
+    nav4: { ar: 'الحزمة', fr: 'Pack' },
+    eb5: { ar: 'الحزمة المميزة', fr: 'Pack Premium' },
+    pb5: { ar: 'استشارة 90 دقيقة + فحوصات مخبرية كاملة + 3 متابعات + ملف صحي مدى الحياة. كل ما تحتاجه للسنة القادمة في حزمة واحدة.', fr: 'Consultation 90 min + analyses complètes + 3 suivis + dossier santé à vie. Tout pour l’année à venir en un seul pack.' },
+    cdLabel: { ar: 'عرض الإطلاق ينتهي نهاية هذا الشهر — المتبقي:', fr: 'L’offre de lancement finit ce mois-ci — reste :' },
+    cdDay: { ar: 'يوم', fr: 'jours' },
+    v0t: { ar: 'تكلفة الإهمال', fr: 'Le coût de l’attente' },
+    v0b: { ar: 'مضاعفات وزيارات طارئة قد تتجاوز 5000 دج في 6 أشهر', fr: 'Complications et urgences : plus de 5000 DA en 6 mois' },
+    v1t: { ar: 'ماذا تشمل', fr: 'Ce qui est inclus' },
+    v1b: { ar: 'فحص شامل + ملف موحد + خط مفتوح + جلسة مجانية إن لم تتحسن', fr: 'Bilan + dossier unique + ligne ouverte + séance offerte si pas d’amélioration' },
+    v2t: { ar: 'السعر بشفافية', fr: 'Prix transparent' },
+    v2b: { ar: 'القيمة 7500 دج — سعرك 1000 دج (عرض إطلاق)', fr: 'Valeur 7500 DA — votre prix 1000 DA (lancement)' },
+    v3t: { ar: 'لمن تناسب', fr: 'Pour qui' },
+    v3b: { ar: 'فوق 40، تاريخ عائلي، إرهاق مستمر، آخر فحص منذ 2+ سنة', fr: '40+, antécédents familiaux, fatigue persistante, dernier bilan il y a 2+ ans' },
+    prVal: { ar: 'القيمة الفعلية', fr: 'Valeur réelle' },
+    prNow: { ar: 'سعرك اليوم', fr: 'Votre prix' },
+    prPay: { ar: 'نقداً · بريدي موب · أو 3 دفعات (350+350+300) بدون فائدة', fr: 'Espèces · BaridiMob · ou 3 fois (350+350+300) sans intérêts' },
+    qzTitle: { ar: 'أجب بـ نعم / لا — نرى إن كانت الحزمة لك', fr: 'Répondez oui / non — voyons si le pack est pour vous' },
+    qz0: { ar: 'عمرك 40 سنة أو أكثر؟', fr: '40 ans ou plus ?' },
+    qz1: { ar: 'تاريخ عائلي (ضغط، سكري) أو إرهاق مستمر؟', fr: 'Antécédents familiaux ou fatigue persistante ?' },
+    qz2: { ar: 'آخر فحص شامل منذ سنتين أو أكثر؟', fr: 'Dernier bilan il y a 2 ans ou plus ?' },
+    ynY: { ar: 'نعم', fr: 'Oui' },
+    ynN: { ar: 'لا', fr: 'Non' },
+    qzYes: { ar: 'أنت مرشح مناسب — أكّد عبر واتساب وسنتصل بك.', fr: 'Vous êtes éligible — confirmez sur WhatsApp, on vous rappellera.' },
+    qzNo: { ar: 'الاستشارة العامة أنسب لك حالياً — احجزها من الأعلى.', fr: 'La consultation générale vous convient mieux — réservez ci-dessus.' },
+    tsTag: { ar: 'شهادة تجريبية — تُستبدل بشهادة حقيقية', fr: 'Témoignage d’exemple — à remplacer' },
+    tsBody: { ar: '"الفحص الشامل كشف مستوى سكر خفي — الحمد لله اكتشفناه بدري. من غير هذه الحزمة كنت سأنتظر حتى تتفاقم الأمور."', fr: '« Le bilan a révélé un diabète caché — heureusement détecté tôt. Sans ce pack, j’aurais attendu que ça empire. »' },
+    tsWho: { ar: 'ن. م. · 47 سنة', fr: 'N. M. · 47 ans' },
+    pq0: { ar: 'لماذا 1000 دج فقط؟ ما المقابل الخفي؟', fr: 'Pourquoi seulement 1000 DA ? Quel est le piège ?' },
+    pa0: { ar: 'لا مقابل خفي: عرض إطلاق لبناء الثقة والسمعة. السعر الكامل 7500 دج سيُطبق بعد انتهاء العرض.', fr: 'Aucun piège : offre de lancement pour bâtir la confiance. Le plein tarif de 7500 DA s’appliquera après.' },
+    pq1: { ar: '90 دقيقة طويلة — هل سأملّ؟', fr: '90 minutes, n’est-ce pas trop long ?' },
+    pa1: { ar: 'الطول من الشمولية لا من البطء: فحص كامل + شرح + خطة مكتوبة تغادر بها. لا غموض.', fr: 'La durée vient de l’exhaustivité : examen + explications + plan écrit. Aucune zone d’ombre.' },
+    pq2: { ar: 'ملفي الرقمي — ماذا عن الخصوصية؟', fr: 'Mon dossier numérique — et la confidentialité ?' },
+    pa2: { ar: 'ملفك مشفّر ولا يطّلع عليه إلا أنت وطبيبك. يمكن حفظ نسخة محلية لديك متى شئت.', fr: 'Dossier chiffré, accessible uniquement par vous et votre médecin. Copie locale possible.' },
+    packCta: { ar: 'اختر موعدك الآن — 30 ثانية عبر واتساب', fr: 'Choisissez votre créneau — 30 secondes sur WhatsApp' },
     days: { ar: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'], fr: ['Samedi', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi'] },
     times: { ar: ['صباحاً · 8–11', 'منتصف النهار · 11–14', 'مساءً · 14–17'], fr: ['Matin · 8–11', 'Midi · 11–14', 'Après-midi · 14–17'] },
     errNeed: { ar: 'يرجى إدخال الاسم ورقم هاتف صحيح (05/06/07 + 8 أرقام).', fr: 'Veuillez saisir nom et téléphone valides (05/06/07 + 8 chiffres).' },
@@ -286,6 +320,64 @@
       (nameI && nameI.value.trim().length < 3 ? nameI : phoneI).focus();
     }
   });
+
+  /* ---------- premium: A/B headline, countdown, quiz, click stats ---------- */
+  var VARIANTS = {
+    A: { ar: 'اشترِ عافيتك مرة واحدة — ولا تقلق بعدها', fr: 'Payez votre tranquillité une fois — et oubliez l’inquiétude' },
+    B: { ar: 'تشخيص حقيقي + متابعة حقيقية = حياة حقيقية', fr: 'Vrai diagnostic + vrai suivi = vraie vie' },
+    C: { ar: 'قبل أن تصبح مشكلة... تحقق الآن', fr: 'Avant que ça devienne un problème... vérifiez maintenant' }
+  };
+  var ab = 'A';
+  try { ab = localStorage.getItem('chifa-ab') || (['A', 'B', 'C'])[Math.floor(Math.random() * 3)]; localStorage.setItem('chifa-ab', ab); } catch (e) {}
+  function paintVariant() {
+    var t = document.getElementById('premiumTitle');
+    if (t && VARIANTS[ab]) t.innerHTML = VARIANTS[ab][lang];
+  }
+  function trackClick(name) {
+    try {
+      var k = 'chifa-clicks', all = JSON.parse(localStorage.getItem(k) || '{}');
+      var key = ab + ':' + name;
+      all[key] = (all[key] || 0) + 1;
+      localStorage.setItem(k, JSON.stringify(all));
+    } catch (e) {}
+  }
+  var packGo = document.getElementById('packGo');
+  if (packGo) packGo.addEventListener('click', function () { trackClick('pack'); });
+  if (go) go.addEventListener('click', function () { if (valid()) trackClick('book'); });
+  // Honest countdown: real days left in the calendar month (offer ends month-end).
+  function paintCountdown() {
+    var el = document.getElementById('cdDays');
+    if (!el) return;
+    var now = new Date();
+    var left = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate() - now.getDate();
+    el.textContent = left + ' ' + STR.cdDay[lang];
+  }
+  // 3-question qualifier: score 2+ = eligible, WhatsApp carries the answers.
+  var quizAns = {};
+  document.querySelectorAll('#quiz [data-quiz]').forEach(function (box) {
+    box.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      box.querySelectorAll('button').forEach(function (x) { x.classList.remove('is-sel'); x.setAttribute('aria-pressed', 'false'); });
+      b.classList.add('is-sel');
+      b.setAttribute('aria-pressed', 'true');
+      quizAns[box.getAttribute('data-quiz')] = b.getAttribute('data-v');
+      var score = ['0', '1', '2'].filter(function (k) { return quizAns[k] === '1'; }).length;
+      var res = document.getElementById('quizRes');
+      if (Object.keys(quizAns).length === 3 && res) {
+        var ok = score >= 2;
+        res.textContent = ok ? STR.qzYes[lang] : STR.qzNo[lang];
+        if (ok && packGo) {
+          packGo.href = 'https://wa.me/213000000000?text=' + encodeURIComponent(
+            (lang === 'ar' ? 'مهتم بالحزمة المميزة (إجابات: ' : 'Pack Premium (réponses : ') +
+            ['0', '1', '2'].map(function (k) { return quizAns[k] === '1' ? (lang === 'ar' ? 'نعم' : 'oui') : (lang === 'ar' ? 'لا' : 'non'); }).join('، ') + ')');
+        }
+      }
+    });
+  });
+  var _applyLang = applyLang;
+  applyLang = function () { _applyLang(); paintVariant(); paintCountdown(); };
 
   applyLang();
   read();

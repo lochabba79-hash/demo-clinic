@@ -207,6 +207,42 @@ html[dir="ltr"] .route button span{left:auto;right:26px}
   .copy{transition:none;opacity:1;transform:none}
   .hint i::after{animation:none}
 }
+/* Premium scene visual: deep green + gold */
+.scene__visual--premium{background:
+  radial-gradient(50% 42% at 50% 22%,#e6c878 0%,transparent 65%),
+  radial-gradient(60% 50% at 50% 85%,#1d3a30 0%,transparent 75%),
+  linear-gradient(165deg,#3d5a4b,#22392f 55%,#2F5D50)}
+.scene__arch--seal{right:50%;transform:translateX(50%);width:30vmin;height:30vmin;top:14%;bottom:auto;
+  border-radius:50%;border:3px solid rgba(230,200,120,.6);opacity:.5}
+/* Premium package blocks */
+.services--4{grid-template-columns:repeat(4,1fr)}
+.countdown{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-size:.88rem;font-weight:700;
+  color:var(--terra);background:color-mix(in srgb,var(--terra) 10%,transparent);
+  border:1px solid color-mix(in srgb,var(--terra) 30%,transparent);padding:10px 18px;border-radius:999px}
+.countdown i{font-size:1.15rem}
+.countdown b{font-size:1rem}
+.price{margin-top:18px;border-radius:22px;padding:20px;
+  background:color-mix(in srgb,var(--green) 10%,transparent);
+  border:1.5px solid color-mix(in srgb,var(--green) 35%,transparent)}
+.price__row{display:flex;justify-content:space-between;align-items:center;font-size:.92rem;padding:6px 0}
+.price__row s{color:var(--ink-soft)}
+.price__row--big{font-size:1.05rem;font-weight:800}
+.price__row--big b{font-size:1.6rem;color:var(--green)}
+.price__pay{margin-top:10px;font-size:.83rem;color:var(--ink-soft)}
+.quiz{margin-top:18px;border-radius:22px;padding:20px;
+  border:1px solid color-mix(in srgb,var(--terra) 25%,transparent);
+  background:color-mix(in srgb,#fff 60%,transparent)}
+.quiz__q{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;font-size:.9rem;font-weight:500}
+.quiz__q .book__pills{flex-shrink:0}
+.quiz__res{margin:14px 0 0;font-weight:800;color:var(--green)}
+.testi{margin-top:18px;border-radius:22px;padding:20px;position:relative;
+  background:color-mix(in srgb,#fff 70%,transparent);
+  border:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
+.testi p{margin:10px 0 0;line-height:1.9}
+.testi__who{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:.88rem}
+.testi__stars{color:var(--gold);letter-spacing:.15em}
+.sampletag{display:inline-block;font-size:.72rem;font-weight:800;color:var(--ink-soft);
+  border:1px dashed color-mix(in srgb,var(--ink) 35%,transparent);border-radius:999px;padding:4px 12px}
 @media print{
   .topbar,.route,.hint,.stickycta,.progress,.stage,.scene__grain{display:none!important}
   html,body{background:#fff}

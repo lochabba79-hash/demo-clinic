@@ -44,6 +44,7 @@
       <button data-goto="1" data-i18n="nav1">الفحص</button>
       <button data-goto="2" data-i18n="nav2">المتابعة</button>
       <button data-goto="3" data-i18n="nav3">احجز</button>
+      <button data-goto="4" data-i18n="nav4">الحزمة</button>
     </nav>
     <button class="langtoggle" id="langToggle" aria-label="Français / العربية">FR</button>
     <button class="themetoggle" id="themeToggle" data-i18n-attr="aria-label" data-i18n="themeToggle" aria-label="تبديل المظهر"><i class="ph-light ph-moon"></i></button>
@@ -75,6 +76,10 @@
       <img class="scene__photo" data-photo="assets/still_cta.webp" data-photo-sm="assets/still_cta-sm.webp" alt="" />
       <div class="scene__grain"></div>
     </div>
+    <div class="scene" data-scene="4">
+      <div class="scene__visual scene__visual--premium"><span class="scene__arch scene__arch--seal"></span></div>
+      <div class="scene__grain"></div>
+    </div>
     <div class="stage__veil"></div>
   </div>
 
@@ -83,6 +88,7 @@
     <button data-goto="1"><span data-i18n="nav1">الفحص</span><i></i></button>
     <button data-goto="2"><span data-i18n="nav2">المتابعة</span><i></i></button>
     <button data-goto="3"><span data-i18n="nav3">احجز</span><i></i></button>
+    <button data-goto="4"><span data-i18n="nav4">الحزمة</span><i></i></button>
   </aside>
 
   <div class="hint" id="hint"><span data-i18n="hint">مرّر للأسفل لاكتشاف العيادة</span><i></i></div>
@@ -93,7 +99,7 @@
   <main id="top">
     <!-- 01 / RECEPTION -->
     <section class="copy" data-index="0" id="s1">
-      <span class="copy__num">01 / 04</span>
+      <span class="copy__num">01 / 05</span>
       <h1 class="copy__title" data-i18n="heroTitle">طبٌّ بطابعٍ عائلي، <em>من قلب سطيف</em></h1>
       <p class="copy__body" data-i18n="heroBody">استقبال دافئ، مواعيد تحترم وقتك، وفريق يشرح لك كل خطوة قبل أن تبدأ. هذه رحلتك داخل العيادة — مرّر لتكملها.</p>
       <ul class="copy__tags">
@@ -196,6 +202,56 @@
         <p class="note"><span data-i18n="bkOrCall">أو اتصل مباشرة:</span> <a href="tel:+213000000000" dir="ltr">+213 00 00 00 00</a></p>
       </div>
       <footer class="foot" data-i18n="foot">عيادة الشفاء — سطيف · صُنعت بواسطة Ibdaa Creations · نموذج عرض تجريبي</footer>
+    </section>
+    <!-- 05 / PREMIUM PACKAGE -->
+    <section class="copy" data-index="4" id="s5">
+      <span class="copy__eyebrow" data-i18n="eb5">الحزمة المميزة</span>
+      <h2 class="copy__title" id="premiumTitle">اشترِ عافيتك مرة واحدة — ولا تقلق بعدها</h2>
+      <p class="copy__body" data-i18n="pb5">استشارة 90 دقيقة + فحوصات مخبرية كاملة + 3 متابعات + ملف صحي مدى الحياة. كل ما تحتاجه للسنة القادمة في حزمة واحدة.</p>
+      <p class="countdown"><i class="ph-light ph-timer"></i><span data-i18n="cdLabel">عرض الإطلاق ينتهي نهاية هذا الشهر — المتبقي:</span> <b id="cdDays"></b></p>
+      <ul class="services services--4">
+        <li><i class="ph-light ph-warning"></i><b data-i18n="v0t">تكلفة الإهمال</b><span data-i18n="v0b">مضاعفات وزيارات طارئة قد تتجاوز 5000 دج في 6 أشهر</span></li>
+        <li><i class="ph-light ph-check-circle"></i><b data-i18n="v1t">ماذا تشمل</b><span data-i18n="v1b">فحص شامل + ملف موحد + خط مفتوح + جلسة مجانية إن لم تتحسن</span></li>
+        <li><i class="ph-light ph-chart-bar"></i><b data-i18n="v2t">السعر بشفافية</b><span data-i18n="v2b">القيمة 7500 دج — سعرك 1000 دج (عرض إطلاق)</span></li>
+        <li><i class="ph-light ph-users"></i><b data-i18n="v3t">لمن تناسب</b><span data-i18n="v3b">فوق 40، تاريخ عائلي، إرهاق مستمر، آخر فحص منذ 2+ سنة</span></li>
+      </ul>
+      <div class="price">
+        <div class="price__row"><span data-i18n="prVal">القيمة الفعلية</span><s>7500 دج</s></div>
+        <div class="price__row price__row--big"><span data-i18n="prNow">سعرك اليوم</span><b>1000 دج</b></div>
+        <div class="price__pay">
+          <span data-i18n="prPay">نقداً · بريدي موب · أو 3 دفعات (350+350+300) بدون فائدة</span>
+        </div>
+        <!-- OWNER-CONFIG:confirm real package price before any client demo ($1000 vs 1000DA conflict in brief) -->
+      </div>
+      <div class="quiz" id="quiz">
+        <p class="book__label" data-i18n="qzTitle">أجب بـ نعم / لا — نرى إن كانت الحزمة لك</p>
+        <div class="quiz__q"><span data-i18n="qz0">عمرك 40 سنة أو أكثر؟</span><div class="book__pills" data-quiz="0"><button type="button" data-v="1" data-i18n="ynY">نعم</button><button type="button" data-v="0" data-i18n="ynN">لا</button></div></div>
+        <div class="quiz__q"><span data-i18n="qz1">تاريخ عائلي (ضغط، سكري) أو إرهاق مستمر؟</span><div class="book__pills" data-quiz="1"><button type="button" data-v="1" data-i18n="ynY">نعم</button><button type="button" data-v="0" data-i18n="ynN">لا</button></div></div>
+        <div class="quiz__q"><span data-i18n="qz2">آخر فحص شامل منذ سنتين أو أكثر؟</span><div class="book__pills" data-quiz="2"><button type="button" data-v="1" data-i18n="ynY">نعم</button><button type="button" data-v="0" data-i18n="ynN">لا</button></div></div>
+        <p class="quiz__res" id="quizRes" aria-live="polite"></p>
+      </div>
+      <div class="testi">
+        <span class="sampletag" data-i18n="tsTag">شهادة تجريبية — تُستبدل بشهادة حقيقية</span>
+        <p data-i18n="tsBody">"الفحص الشامل كشف مستوى سكر خفي — الحمد لله اكتشفناه بدري. من غير هذه الحزمة كنت سأنتظر حتى تتفاقم الأمور."</p>
+        <p class="testi__who"><span data-i18n="tsWho">ن. م. · 47 سنة</span><span class="testi__stars" aria-label="5/5">★★★★★</span></p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary data-i18n="pq0">لماذا 1000 دج فقط؟ ما المقابل الخفي؟</summary>
+          <p data-i18n="pa0">لا مقابل خفي: عرض إطلاق لبناء الثقة والسمعة. السعر الكامل 7500 دج سيُطبق بعد انتهاء العرض.</p>
+        </details>
+        <details>
+          <summary data-i18n="pq1">90 دقيقة طويلة — هل سأملّ؟</summary>
+          <p data-i18n="pa1">الطول من الشمولية لا من البطء: فحص كامل + شرح + خطة مكتوبة تغادر بها. لا غموض.</p>
+        </details>
+        <details>
+          <summary data-i18n="pq2">ملفي الرقمي — ماذا عن الخصوصية؟</summary>
+          <p data-i18n="pa2">ملفك مشفّر ولا يطّلع عليه إلا أنت وطبيبك. يمكن حفظ نسخة محلية لديك متى شئت.</p>
+        </details>
+      </div>
+      <div class="copy__cta">
+        <a class="btn btn--primary btn--wide" id="packGo" href="https://wa.me/213000000000?text=%D8%AD%D8%B2%D9%85%D8%A9" target="_blank" rel="noopener"><i class="ph-light ph-whatsapp-logo"></i> <span data-i18n="packCta">اختر موعدك الآن — 30 ثانية عبر واتساب</span></a>
+      </div>
     </section>
   </main>
 
