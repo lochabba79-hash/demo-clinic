@@ -26,5 +26,5 @@
 | arXiv 2412.05139 (CMU/Berkeley): detector examination | ✅ Live | TPR@0.01 as low as 0%; detectors fail on unseen models/tasks; AUROC misleads. Justifies our ban on detector scores as evidence. |
 
 ## Remediation (priority-ordered)- [ ] **P1 — before any client sale:** replace phone, address, hours, prices; add doctor name + license; swap stock photos for real clinic photos.
-- [ ] **P2 — this month:** export og-image as PNG 1200×630; add sitemap.xml + robots.txt pattern to the template.
+- [x] **P2 — done v1.5/v1.6:** og-image PNG 1200×630 shipped (locally rendered); sitemap.xml + robots.txt live.
 - [ ] **P3 — ongoing:** re-run this table per client site; keep findings register per domain.
