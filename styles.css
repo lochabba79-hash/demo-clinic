@@ -173,8 +173,11 @@ main{position:relative;z-index:10}
   .stickycta i{font-size:1.3rem}
 }
 
-/* Route rail (left in RTL = visual left) */
+/* Route rail: visual-left in RTL (balances right-anchored copy); mirrored in LTR
+   so it never sits under the copy block (FR mode moves copy to the left). */
 .route{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:20px}
+html[dir="ltr"] .route{left:auto;right:16px}
+html[dir="ltr"] .route button span{left:auto;right:26px}
 .route button{position:relative;border:0;background:transparent;cursor:pointer;width:16px;height:16px;display:grid;place-items:center}
 .route button i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--terra) 40%,transparent);transition:all .3s}
 .route button.is-active i{background:var(--terra);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--terra) 20%,transparent)}
