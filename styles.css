@@ -243,6 +243,16 @@ html[dir="ltr"] .route button span{left:auto;right:26px}
 .testi__stars{color:var(--gold);letter-spacing:.15em}
 .sampletag{display:inline-block;font-size:.72rem;font-weight:800;color:var(--ink-soft);
   border:1px dashed color-mix(in srgb,var(--ink) 35%,transparent);border-radius:999px;padding:4px 12px}
+/* 3D viewer corner */
+.viewer{margin-top:26px;border-radius:22px;padding:16px;
+  background:color-mix(in srgb,#fff 62%,transparent);
+  border:1px solid color-mix(in srgb,var(--terra) 25%,transparent)}
+.viewer__stage{position:relative;height:300px;border-radius:16px;overflow:hidden;margin-top:12px;
+  background:radial-gradient(60% 55% at 50% 30%,#f3e2bd 0%,#e0bd85 60%,#c08c52 100%)}
+#gl{width:100%;height:100%;display:block;touch-action:none}
+.viewer__fallback{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:20px;
+  font-size:.9rem;color:var(--ink-soft);text-align:center}
+.viewer .book__pills{margin-top:12px}
 @media print{
   .topbar,.route,.hint,.stickycta,.progress,.stage,.scene__grain{display:none!important}
   html,body{background:#fff}

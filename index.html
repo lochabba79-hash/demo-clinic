@@ -28,6 +28,7 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -78,6 +79,7 @@
     </div>
     <div class="scene" data-scene="4">
       <div class="scene__visual scene__visual--premium"><span class="scene__arch scene__arch--seal"></span></div>
+      <img class="scene__photo" data-photo="assets/still_premium.webp" data-photo-sm="assets/still_premium-sm.webp" alt="" />
       <div class="scene__grain"></div>
     </div>
     <div class="stage__veil"></div>
@@ -110,6 +112,16 @@
       <div class="copy__cta">
         <a class="btn btn--primary" href="https://wa.me/213000000000?text=%D8%A3ريد%20حجز%20موعد" target="_blank" rel="noopener"><i class="ph-light ph-whatsapp-logo"></i> <span data-i18n="ctaWa">احجز عبر واتساب</span></a>
         <a class="btn btn--ghost" href="#s2"><i class="ph-light ph-stethoscope"></i> <span data-i18n="ctaExam">اكتشف الفحص</span></a>
+      </div>
+      <div class="viewer" id="viewer3d">
+        <p class="book__label" data-i18n="v3dT">ركن ثلاثي الأبعاد — اسحب للتدوير</p>
+        <div class="viewer__stage"><canvas id="gl"></canvas><p class="viewer__fallback" id="glFallback" hidden data-i18n="v3dOff">العرض 3D غير مدعوم هنا — تابع التمرير</p></div>
+        <div class="book__pills" id="modelPills" role="group" aria-label="3D">
+          <button type="button" class="is-sel" data-model="sign_hospital" aria-pressed="true"><span data-i18n="mSign">لافتة العيادة</span></button>
+          <button type="button" data-model="firstaid_kit" aria-pressed="false"><span data-i18n="mKit">حقيبة إسعاف</span></button>
+          <button type="button" data-model="pickup_health" aria-pressed="false"><span data-i18n="mHealth">مجسّم الصحة</span></button>
+        </div>
+        <p class="note" data-i18n="v3dCap">نماذج مجانية CC0: Kenney وQuaternius</p>
       </div>
     </section>
 
@@ -256,5 +268,6 @@
   </main>
 
   <script src="scroll.js"></script>
+  <script src="viewer.js"></script>
 </body>
 </html>
