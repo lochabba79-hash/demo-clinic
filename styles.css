@@ -107,6 +107,8 @@ main{position:relative;z-index:10}
 .copy__title{font-family:var(--font-display);font-weight:700;font-size:clamp(2.1rem,5.2vw,3.4rem);
   line-height:1.35;margin:16px 0 0;text-wrap:balance}
 .copy__title em{font-style:normal;color:var(--terra)}
+/* Amiri has no Latin glyphs — FR display type uses Tajawal instead of fallback serif */
+html[lang="fr"] .copy__title{font-family:"Tajawal",system-ui,sans-serif;font-weight:800}
 .copy__body{margin:16px 0 0;font-size:clamp(1rem,1.4vw,1.12rem);line-height:1.9;color:color-mix(in srgb,var(--ink) 88%,var(--ink-soft));max-width:42ch}
 .copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0}
 .copy__tags li{font-size:.83rem;font-weight:500;padding:8px 14px;border-radius:999px;
